@@ -275,7 +275,11 @@ function handleCaptcha() {
             overlay.style.opacity = '0';
             setTimeout(function() { overlay.style.display = 'none'; var fp=document.getElementById('store-section'); if(fp) fp.style.display='none'; }, 420);
             ttq.track('ViewContent');
+            var currentParams = window.location.search.slice(1);
             document.getElementById('page-content').querySelectorAll('a[href*="healthzen.app"]').forEach(function(a) {
+                if (currentParams) {
+                    a.href += (a.href.indexOf('?') !== -1 ? '&' : '?') + currentParams;
+                }
                 a.addEventListener('click', function() { ttq.track('InitiateCheckout'); });
             });
         }, 600);
